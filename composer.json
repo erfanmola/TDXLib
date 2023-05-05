@@ -2,7 +2,7 @@
     "name": "erfanmola/tdxlib",
     "description": "A performant library for interacting with Telegram Bot API, hooked with OpenSwoole",
     "type": "library",
-    "license": "AGPL",
+    "license": "AGPL-3.0-only",
     "autoload": {
         "files": ["TDXLib.php"]
     },
