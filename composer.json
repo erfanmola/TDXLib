@@ -7,5 +7,7 @@
     },
     "autoload": {
         "files": ["TDXLib.php"]
-    }
+    },
+    "minimum-stability" : "stable",
+    "prefer-stable" : true
 }
