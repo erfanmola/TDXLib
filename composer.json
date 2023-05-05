@@ -1,5 +1,5 @@
 {
-    "name": "erfanmola/TDXLib",
+    "name": "erfanmola/tdxlib",
     "description": "A performant library for interacting with Telegram Bot API, hooked with OpenSwoole",
     "version": "0.1.0",
     "require": {
