@@ -8,6 +8,6 @@
     "autoload": {
         "files": ["TDXLib.php"]
     },
-    "minimum-stability" : "dev",
+    "minimum-stability" : "stable",
     "prefer-stable" : true
 }
