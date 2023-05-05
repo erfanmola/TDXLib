@@ -1,0 +1,11 @@
+{
+    "name": "erfanmola/TDXLib",
+    "description": "A performant library for interacting with Telegram Bot API, hooked with OpenSwoole",
+    "version": "0.1.0",
+    "require": {
+        "php": "^8.0"
+    },
+    "autoload": {
+        "files": ["TDXLib.php"]
+    }
+}
