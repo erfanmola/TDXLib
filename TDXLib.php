@@ -7,7 +7,7 @@
  *   |_|   |____/  /_/\_\ |_____|_|_.__/
  * 
  * Author: Erfan Mola
- * Version: 0.1.0
+ * Version: 0.1.1
  * License: GNU Affero General Public License v3.0
  */
 
@@ -55,7 +55,7 @@ function TelegramAPI(string $method, array $params = [], bool|null $response = n
 
     }
 
-    $params = json_encode(array_filter($params, function($item) { return $item; }));
+    $params = json_encode(array_map(function($item) { return (is_array($item) ? json_encode($item) : $item); }, array_filter($params, function($item) { return $item; })));
 
     if ($response) {
 
