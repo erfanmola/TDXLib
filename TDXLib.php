@@ -86,53 +86,25 @@ function TelegramAPI(string $method, array $params = [], bool|null $response = n
 
     }else{
 
-        if (defined('SWOOLE_BASE')) {
+        if (defined('SWOOLE_BASE') && (count(Swoole\Coroutine::list()) > 0)) {
 
-            if ((count(Swoole\Coroutine::list()) > 0)) {
+            go(function() use (&$bot_api_server, &$bot_token, &$method, &$params) {
 
-                go(function() use (&$bot_api_server, &$bot_token, &$method, &$params) {
+                $ch = curl_init();
 
-                    $ch = curl_init();
-
-                    curl_setopt($ch, CURLOPT_URL, "{$bot_api_server}/bot{$bot_token}/{$method}");
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                    curl_setopt($ch, CURLOPT_POST, true);
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, [ 'Content-Type: application/json' ]);
-                    curl_setopt($ch, CURLOPT_TCP_FASTOPEN, true);
-                    curl_setopt($ch, CURLOPT_TCP_NODELAY, true);
-            
-                    curl_exec($ch);
-                    
-                    curl_close($ch);
-
-                });
-
-            }else{
-
-                co::run(function() use (&$bot_api_server, &$bot_token, &$method, &$params) {
-
-                    go(function() use (&$bot_api_server, &$bot_token, &$method, &$params) {
-
-                        $ch = curl_init();
-    
-                        curl_setopt($ch, CURLOPT_URL, "{$bot_api_server}/bot{$bot_token}/{$method}");
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                        curl_setopt($ch, CURLOPT_POST, true);
-                        curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-                        curl_setopt($ch, CURLOPT_HTTPHEADER, [ 'Content-Type: application/json' ]);
-                        curl_setopt($ch, CURLOPT_TCP_FASTOPEN, true);
-                        curl_setopt($ch, CURLOPT_TCP_NODELAY, true);
+                curl_setopt($ch, CURLOPT_URL, "{$bot_api_server}/bot{$bot_token}/{$method}");
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, [ 'Content-Type: application/json' ]);
+                curl_setopt($ch, CURLOPT_TCP_FASTOPEN, true);
+                curl_setopt($ch, CURLOPT_TCP_NODELAY, true);
+        
+                curl_exec($ch);
                 
-                        curl_exec($ch);
-                        
-                        curl_close($ch);
-    
-                    });
+                curl_close($ch);
 
-                });
-                
-            }
+            });
 
         }else{
 
