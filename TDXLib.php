@@ -396,7 +396,7 @@ function GetChatAdministrators(string|int $chat_id, null|string $bot_token = nul
 
 }
 
-function GetChatMemberCount(string|int $chat_id, null|string $bot_token = null, string|null $bot_api_server = null) : array|null {
+function GetChatMemberCount(string|int $chat_id, null|string $bot_token = null, string|null $bot_api_server = null) : array|null|int {
 
     return TelegramAPI('getChatMemberCount', [
         'chat_id' => $chat_id,
