@@ -7,7 +7,7 @@
  *   |_|   |____/  /_/\_\ |_____|_|_.__/
  * 
  * Author: Erfan Mola
- * Version: 0.1.2
+ * Version: 0.1.3
  * License: GNU Affero General Public License v3.0
  */
 
@@ -127,9 +127,9 @@ function SendMessage(string|int $chat_id, string|array $text, string|int|null $r
         'chat_id'                     => $chat_id,
         'text'                        => is_string($text) ? $text : json_encode($text),
         'reply_to_message_id'         => $reply_to_message_id,
-        'allow_sending_without_reply' => (isset($params['allow_sending_without_reply']) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
-        'disable_web_page_preview'    => (isset($params['disable_web_page_preview']) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
-        'parse_mode'                  => (isset($params['parse_mode']) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
+        'allow_sending_without_reply' => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        'disable_web_page_preview'    => (array_key_exists('disable_web_page_preview', $params) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
+        'parse_mode'                  => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
     ]);
 
     if (strlen(strip_tags($params['text'])) <= 4096) {
@@ -157,10 +157,10 @@ function SendDocument(string|int $chat_id, string $document, string|array|null $
         'document'                       => $document,
         'caption'                        => strlen($caption) > 0 ? $caption : '',
         'reply_to_message_id'            => $reply_to_message_id,
-        'allow_sending_without_reply'    => (isset($params['allow_sending_without_reply']) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
-        'disable_web_page_preview'       => (isset($params['disable_web_page_preview']) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
-        'disable_content_type_detection' => (isset($params['disable_content_type_detection']) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
-        'parse_mode'                     => (isset($params['parse_mode']) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
+        'allow_sending_without_reply'    => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        'disable_web_page_preview'       => (array_key_exists('disable_web_page_preview', $params) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
+        'disable_content_type_detection' => (array_key_exists('disable_content_type_detection', $params) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
+        'parse_mode'                     => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
     ]);
 
     return TelegramAPI('sendDocument', $params, $response, $bot_token, $bot_api_server);
@@ -174,10 +174,10 @@ function SendPhoto(string|int $chat_id, string $photo, string|array|null $captio
         'photo'                          => $photo,
         'caption'                        => strlen($caption) > 0 ? $caption : '',
         'reply_to_message_id'            => $reply_to_message_id,
-        'allow_sending_without_reply'    => (isset($params['allow_sending_without_reply']) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
-        'disable_web_page_preview'       => (isset($params['disable_web_page_preview']) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
-        'disable_content_type_detection' => (isset($params['disable_content_type_detection']) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
-        'parse_mode'                     => (isset($params['parse_mode']) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
+        'allow_sending_without_reply'    => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        'disable_web_page_preview'       => (array_key_exists('disable_web_page_preview', $params) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
+        'disable_content_type_detection' => (array_key_exists('disable_content_type_detection', $params) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
+        'parse_mode'                     => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
     ]);
 
     return TelegramAPI('sendPhoto', $params, $response, $bot_token, $bot_api_server);
@@ -191,10 +191,10 @@ function SendAnimation(string|int $chat_id, string $animation, string|array|null
         'animation'                      => $animation,
         'caption'                        => strlen($caption) > 0 ? $caption : '',
         'reply_to_message_id'            => $reply_to_message_id,
-        'allow_sending_without_reply'    => (isset($params['allow_sending_without_reply']) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
-        'disable_web_page_preview'       => (isset($params['disable_web_page_preview']) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
-        'disable_content_type_detection' => (isset($params['disable_content_type_detection']) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
-        'parse_mode'                     => (isset($params['parse_mode']) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
+        'allow_sending_without_reply'    => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        'disable_web_page_preview'       => (array_key_exists('disable_web_page_preview', $params) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
+        'disable_content_type_detection' => (array_key_exists('disable_content_type_detection', $params) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
+        'parse_mode'                     => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
     ]);
 
     return TelegramAPI('sendAnimation', $params, $response, $bot_token, $bot_api_server);
@@ -208,10 +208,10 @@ function SendVideo(string|int $chat_id, string $video, string|array|null $captio
         'video'                          => $video,
         'caption'                        => strlen($caption) > 0 ? $caption : '',
         'reply_to_message_id'            => $reply_to_message_id,
-        'allow_sending_without_reply'    => (isset($params['allow_sending_without_reply']) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
-        'disable_web_page_preview'       => (isset($params['disable_web_page_preview']) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
-        'disable_content_type_detection' => (isset($params['disable_content_type_detection']) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
-        'parse_mode'                     => (isset($params['parse_mode']) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
+        'allow_sending_without_reply'    => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        'disable_web_page_preview'       => (array_key_exists('disable_web_page_preview', $params) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
+        'disable_content_type_detection' => (array_key_exists('disable_content_type_detection', $params) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
+        'parse_mode'                     => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
     ]);
 
     return TelegramAPI('sendVideo', $params, $response, $bot_token, $bot_api_server);
@@ -225,10 +225,10 @@ function SendVoice(string|int $chat_id, string $voice, string|array|null $captio
         'voice'                          => $voice,
         'caption'                        => strlen($caption) > 0 ? $caption : '',
         'reply_to_message_id'            => $reply_to_message_id,
-        'allow_sending_without_reply'    => (isset($params['allow_sending_without_reply']) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
-        'disable_web_page_preview'       => (isset($params['disable_web_page_preview']) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
-        'disable_content_type_detection' => (isset($params['disable_content_type_detection']) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
-        'parse_mode'                     => (isset($params['parse_mode']) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
+        'allow_sending_without_reply'    => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        'disable_web_page_preview'       => (array_key_exists('disable_web_page_preview', $params) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
+        'disable_content_type_detection' => (array_key_exists('disable_content_type_detection', $params) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
+        'parse_mode'                     => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
     ]);
 
     return TelegramAPI('sendVoice', $params, $response, $bot_token, $bot_api_server);
@@ -242,10 +242,10 @@ function SendAudio(string|int $chat_id, string $audio, string|array|null $captio
         'audio'                          => $audio,
         'caption'                        => strlen($caption) > 0 ? $caption : '',
         'reply_to_message_id'            => $reply_to_message_id,
-        'allow_sending_without_reply'    => (isset($params['allow_sending_without_reply']) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
-        'disable_web_page_preview'       => (isset($params['disable_web_page_preview']) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
-        'disable_content_type_detection' => (isset($params['disable_content_type_detection']) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
-        'parse_mode'                     => (isset($params['parse_mode']) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
+        'allow_sending_without_reply'    => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        'disable_web_page_preview'       => (array_key_exists('disable_web_page_preview', $params) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
+        'disable_content_type_detection' => (array_key_exists('disable_content_type_detection', $params) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
+        'parse_mode'                     => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
     ]);
 
     return TelegramAPI('sendAudio', $params, $response, $bot_token, $bot_api_server);
@@ -259,10 +259,10 @@ function SendSticker(string|int $chat_id, string $sticker, string|null $emoji = 
         'sticker'                        => $sticker,
         'emoji'                          => $emoji,
         'reply_to_message_id'            => $reply_to_message_id,
-        'allow_sending_without_reply'    => (isset($params['allow_sending_without_reply']) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
-        'disable_web_page_preview'       => (isset($params['disable_web_page_preview']) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
-        'disable_content_type_detection' => (isset($params['disable_content_type_detection']) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
-        'parse_mode'                     => (isset($params['parse_mode']) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
+        'allow_sending_without_reply'    => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        'disable_web_page_preview'       => (array_key_exists('disable_web_page_preview', $params) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
+        'disable_content_type_detection' => (array_key_exists('disable_content_type_detection', $params) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
+        'parse_mode'                     => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
     ]);
 
     return TelegramAPI('sendSticker', $params, $response, $bot_token, $bot_api_server);
@@ -337,8 +337,8 @@ function CopyMessage(string|int $to_chat_id, string|int $from_chat_id, string|in
         'from_chat_id'                => $from_chat_id,
         'message_id'                  => $msg_id,
         'reply_to_message_id'         => $reply_to_message_id,
-        'allow_sending_without_reply' => (isset($params['allow_sending_without_reply']) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
-        'parse_mode'                  => (isset($params['parse_mode']) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
+        'allow_sending_without_reply' => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        'parse_mode'                  => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
     ]);
 
     return TelegramAPI('copyMessage', $params, $response, $bot_token, $bot_api_server);
@@ -440,8 +440,8 @@ function EditMessageCaption(null|string|int $chat_id = null, null|int|string $me
     $params = array_merge($params, [
         'chat_id'                  => $chat_id,
         'caption'                  => is_string($caption) ? $caption : json_encode($caption),
-        'disable_web_page_preview' => (isset($params['disable_web_page_preview']) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
-        'parse_mode'               => (isset($params['parse_mode']) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
+        'disable_web_page_preview' => (array_key_exists('disable_web_page_preview', $params) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
+        'parse_mode'               => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
         'inline_message_id'        => $inline_message_id,
         'chat_id'                  => $chat_id,
         'message_id'               => $message_id,
@@ -456,8 +456,8 @@ function EditMessageText(null|string|int $chat_id = null, null|int|string $messa
     $params = array_merge($params, [
         'chat_id'                  => $chat_id,
         'text'                     => is_string($text) ? $text : json_encode($text),
-        'disable_web_page_preview' => (isset($params['disable_web_page_preview']) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
-        'parse_mode'               => (isset($params['parse_mode']) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
+        'disable_web_page_preview' => (array_key_exists('disable_web_page_preview', $params) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
+        'parse_mode'               => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
         'inline_message_id'        => $inline_message_id,
         'chat_id'                  => $chat_id,
         'message_id'               => $message_id,
