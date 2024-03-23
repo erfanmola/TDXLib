@@ -7,7 +7,7 @@
  *   |_|   |____/  /_/\_\ |_____|_|_.__/
  * 
  * Author: Erfan Mola
- * Version: 0.1.3
+ * Version: 0.1.4
  * License: GNU Affero General Public License v3.0
  */
 
@@ -622,6 +622,36 @@ function DeleteMessages(string|int $chat_id, array $msg_ids, null|bool $response
         'chat_id' => $chat_id,
         'message_ids' => $msg_ids,
     ], $response, $bot_token, $bot_api_server);
+
+}
+
+function CreateChatInviteLink(string|int $chat_id, array $params = [], null|string $bot_token = null, string|null $bot_api_server = null) : array|null {
+
+    $params = array_merge($params, [
+        'chat_id' => $chat_id,
+    ]);
+
+    return TelegramAPI('createChatInviteLink', $params, true, $bot_token, $bot_api_server)['result'] ?? null;
+
+}
+
+function EditChatInviteLink(string|int $chat_id, string $invite_link, array $params = [], null|bool $response = null, null|string $bot_token = null, string|null $bot_api_server = null) : array|null {
+
+    $params = array_merge($params, [
+        'chat_id'     => $chat_id,
+        'invite_link' => $invite_link,
+    ]);
+
+    return TelegramAPI('editChatInviteLink', $params, $response, $bot_token, $bot_api_server)['result'] ?? null;
+
+}
+
+function RevokeChatInviteLink(string|int $chat_id, string $invite_link, null|bool $response = null, null|string $bot_token = null, string|null $bot_api_server = null) : array|null {
+
+    return TelegramAPI('revokeChatInviteLink', [
+        'chat_id'     => $chat_id,
+        'invite_link' => $invite_link,
+    ], $response, $bot_token, $bot_api_server)['result'] ?? null;
 
 }
 
