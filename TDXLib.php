@@ -7,7 +7,7 @@
  *   |_|   |____/  /_/\_\ |_____|_|_.__/
  * 
  * Author: Erfan Mola
- * Version: 0.1.5
+ * Version: 0.1.6
  * License: GNU Affero General Public License v3.0
  */
 
@@ -994,15 +994,9 @@ function UnrestrictChatMemberManual(string|int $chat_id, string|int $user_id, in
 
 }
 
-function UnrestrictChatDynamic(string|int $chat_id, string|int $user_id, int $until_date = 0, null|bool $response = null, null|string $bot_token = null, string|null $bot_api_server = null) : array|null {
-
-    return RestrictChatMember($chat_id, $user_id, array_map(fn() => true, GetChat($chat_id)['permissions']), $until_date, $response, $bot_token, $bot_api_server);
-
-}
-
 function UnrestrictChatMember(string|int $chat_id, string|int $user_id, int $until_date = 0, null|bool $response = null, null|string $bot_token = null, string|null $bot_api_server = null) : array|null {
 
-    return RestrictChatMember($chat_id, $user_id, GetChat($chat_id)['permissions'], $until_date, $response, $bot_token, $bot_api_server);
+    return RestrictChatMember($chat_id, $user_id, array_map(fn () => true, GetChat($chat_id)['permissions']), $until_date, $response, $bot_token, $bot_api_server);
 
 }
 
