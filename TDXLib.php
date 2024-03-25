@@ -7,7 +7,7 @@
  *   |_|   |____/  /_/\_\ |_____|_|_.__/
  * 
  * Author: Erfan Mola
- * Version: 0.1.4
+ * Version: 0.1.5
  * License: GNU Affero General Public License v3.0
  */
 
@@ -970,6 +970,33 @@ function UnmuteChatMember(string|int $chat_id, string|int $user_id, int $until_d
         'can_send_other_messages'   => true,
         'can_add_web_page_previews' => true,
     ], $until_date, $response, $bot_token, $bot_api_server);
+
+}
+
+function UnrestrictChatMemberManual(string|int $chat_id, string|int $user_id, int $until_date = 0, null|bool $response = null, null|string $bot_token = null, string|null $bot_api_server = null) : array|null {
+
+    return RestrictChatMember($chat_id, $user_id, [
+        'can_send_messages' => true,
+        'can_send_audios' => true,
+        'can_send_documents' => true,
+        'can_send_photos' => true,
+        'can_send_videos' => true,
+        'can_send_video_notes' => true,
+        'can_send_voice_notes' => true,
+        'can_send_polls' => true,
+        'can_send_other_messages' => true,
+        'can_add_web_page_previews' => true,
+        'can_change_info' => true,
+        'can_invite_users' => true,
+        'can_pin_messages' => true,
+        'can_manage_topics' => true,
+    ], $until_date, $response, $bot_token, $bot_api_server);
+
+}
+
+function UnrestrictChatDynamic(string|int $chat_id, string|int $user_id, int $until_date = 0, null|bool $response = null, null|string $bot_token = null, string|null $bot_api_server = null) : array|null {
+
+    return RestrictChatMember($chat_id, $user_id, array_map(fn() => true, GetChat($chat_id)['permissions']), $until_date, $response, $bot_token, $bot_api_server);
 
 }
 
