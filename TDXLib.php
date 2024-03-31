@@ -5,9 +5,9 @@
  *   | |   | | | |  \  /  | |   | | '_ \
  *   | |   | |_| |  /  \  | |___| | |_) |
  *   |_|   |____/  /_/\_\ |_____|_|_.__/
- * 
+ *
  * Author: Erfan Mola
- * Version: 0.1.6
+ * Version: 0.1.7
  * License: GNU Affero General Public License v3.0
  */
 
@@ -20,7 +20,7 @@ function TelegramAPI(string $method, array $params = [], bool|null $response = n
             $bot_api_server = TDXBotAPIServer;
 
         }else{
-            
+
             $bot_api_server = "https://api.telegram.org";
 
         }
@@ -32,7 +32,7 @@ function TelegramAPI(string $method, array $params = [], bool|null $response = n
         if (defined('TDXToken')) {
 
             $bot_token = TDXToken;
-    
+
         }else{
 
             return [ 'ok' => false, 'error' => 'Bot Token Not Specified' ];
@@ -46,7 +46,7 @@ function TelegramAPI(string $method, array $params = [], bool|null $response = n
         if (defined('TDXResponse')) {
 
             $response = TDXResponse;
-    
+
         }else{
 
             $response = true;
@@ -101,7 +101,7 @@ function TelegramAPI(string $method, array $params = [], bool|null $response = n
                 curl_setopt($ch, CURLOPT_TCP_NODELAY, true);
         
                 curl_exec($ch);
-                
+
                 curl_close($ch);
 
             });
@@ -132,7 +132,7 @@ function SendMessage(string|int $chat_id, string|array $text, string|int|null $r
         'parse_mode'                  => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
     ]);
 
-    if (strlen(strip_tags($params['text'])) <= 4096) {
+    if (mb_strlen(strip_tags($params['text'])) <= 4096) {
 
         return TelegramAPI('sendMessage', $params, $response, $bot_token, $bot_api_server);
 
@@ -342,7 +342,7 @@ function CopyMessage(string|int $to_chat_id, string|int $from_chat_id, string|in
     ]);
 
     return TelegramAPI('copyMessage', $params, $response, $bot_token, $bot_api_server);
-    
+
 }
 
 function LeaveChat(string|int $chat_id, null|bool $response = null, null|string $bot_token = null, string|null $bot_api_server = null) : array|null {
@@ -427,7 +427,7 @@ function AnswerCallbackQuery(string|int $callback_query_id, string $text, bool $
 
     return TelegramAPI('answerCallbackQuery', [
         'callback_query_id' => $callback_query_id,
-        'text'              => $text, 
+        'text'              => $text,
         'show_alert'        => $alert,
         'url'               => $url,
         'cache_time'        => $cache_time,
@@ -483,7 +483,7 @@ function AnswerInlineQuery(string|int $inline_query_id, string|array $results, b
 
     return TelegramAPI('answerInlineQuery', [
         'inline_query_id'     => $inline_query_id,
-        'results'             => is_array($results) ? json_encode($results) : $results, 
+        'results'             => is_array($results) ? json_encode($results) : $results,
         'is_personal'         => $is_personal,
         'cache_time'          => $cache_time,
         'next_offset'         => $next_offset,
@@ -597,7 +597,7 @@ function CopyMessages(string|int $to_chat_id, string|int $from_chat_id, array $m
     ]);
 
     return TelegramAPI('copyMessages', $params, $response, $bot_token, $bot_api_server);
-    
+
 }
 
 function ForwardMessages(string|int $to_chat_id, string|int $from_chat_id, array $msg_ids, array $params = [], null|bool $response = null, null|string $bot_token = null, string|null $bot_api_server = null) : array|null {
@@ -611,7 +611,7 @@ function ForwardMessages(string|int $to_chat_id, string|int $from_chat_id, array
     ]);
 
     return TelegramAPI('forwardMessages', $params, $response, $bot_token, $bot_api_server);
-    
+
 }
 
 function DeleteMessages(string|int $chat_id, array $msg_ids, null|bool $response = null, null|string $bot_token = null, string|null $bot_api_server = null) : array|null {
@@ -703,7 +703,7 @@ if (defined('SWOOLE_BASE')) {
 /* Helper Methods */
 
 function ReportToAdmin(string|array $text, null|bool $response = null) : bool {
-    
+
     if (defined('TDXAdmin')) {
 
         if (is_array(TDXAdmin)) {
@@ -723,7 +723,7 @@ function ReportToAdmin(string|array $text, null|bool $response = null) : bool {
         return true;
 
     }else{
-        
+
         return false;
 
     }
@@ -747,7 +747,7 @@ function IsUserMemberOf(string|int $user_id, string|int $chat_id, null|string $b
 }
 
 function IsUserAdminOf(string|int $user_id, string|int $chat_id, null|string $bot_token = null, string|null $bot_api_server = null) : bool {
-    
+
     foreach (GetChatAdministrators($chat_id, $bot_token, $bot_api_server) as $admin) {
 
         if ((string)$admin['user']['id'] === (string)$user_id) {
@@ -771,7 +771,7 @@ function CheckUserRemainingSponsors(string|int $user_id, array $sponsors, null|s
             $bot_api_server = TDXBotAPIServer;
 
         }else{
-            
+
             $bot_api_server = "https://api.telegram.org";
 
         }
@@ -783,7 +783,7 @@ function CheckUserRemainingSponsors(string|int $user_id, array $sponsors, null|s
         if (defined('TDXToken')) {
 
             $bot_token = TDXToken;
-    
+
         }else{
 
             return [ 'ok' => false, 'error' => 'Bot Token Not Specified' ];
@@ -793,7 +793,7 @@ function CheckUserRemainingSponsors(string|int $user_id, array $sponsors, null|s
     }
 
     $mh = curl_multi_init();
-   
+
     $CurlHandles = [];
 
     foreach ($sponsors as $sponsor) {
@@ -806,19 +806,19 @@ function CheckUserRemainingSponsors(string|int $user_id, array $sponsors, null|s
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TCP_FASTOPEN, true);
         curl_setopt($ch, CURLOPT_POST, true);
-    
+
         $content = [
             'chat_id' => $sponsor['chat_id'],
             'user_id' => $user_id,
         ];
-    
+
         curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
 
         $CurlHandles[] = $ch;
         curl_multi_add_handle($mh, $ch);
 
     }
-   
+
     $active = null;
 
     do {
@@ -836,11 +836,11 @@ function CheckUserRemainingSponsors(string|int $user_id, array $sponsors, null|s
         }
 
     }
-   
+
     foreach ($CurlHandles as $key => $ch) {
-        
+
         $chat_member = json_decode(curl_multi_getcontent($ch), true)['result'] ?? [];
-        
+
         curl_multi_remove_handle($mh, $ch);
 
         if (isset($chat_member['status']) && $chat_member['status'] !== 'left' && $chat_member['status'] !== 'kicked') {
@@ -851,14 +851,14 @@ function CheckUserRemainingSponsors(string|int $user_id, array $sponsors, null|s
 
     }
 
-    curl_multi_close($mh); 
+    curl_multi_close($mh);
 
     return array_values($sponsors);
 
 }
 
 function MentionUserByID(string|int $user_id, string $text, string $mode = 'HTML') : string {
-    
+
     if ($mode === 'HTML') {
 
         return "<a href='tg://user?id=$user_id'>$text</a>";
@@ -955,7 +955,7 @@ if (!(function_exists('IsUserFlooding'))) {
 
 function MuteChatMember(string|int $chat_id, string|int $user_id, int $until_date = 0, null|bool $response = null, null|string $bot_token = null, string|null $bot_api_server = null) : array|null {
 
-    return RestrictChatMember($chat_id, $user_id, [ 
+    return RestrictChatMember($chat_id, $user_id, [
         'can_send_messages' => false
     ], $until_date, $response, $bot_token, $bot_api_server);
 
