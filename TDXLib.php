@@ -7,7 +7,7 @@
  *   |_|   |____/  /_/\_\ |_____|_|_.__/
  *
  * Author: Erfan Mola
- * Version: 0.1.8
+ * Version: 0.1.9
  * License: GNU Affero General Public License v3.0
  */
 
@@ -116,8 +116,10 @@ function SendMessage(string|int $chat_id, string|array $text, string|int|null $r
     $params = array_merge($params, [
         'chat_id'                     => $chat_id,
         'text'                        => is_string($text) ? $text : json_encode($text),
-        'reply_parameters'            => $reply_to_message_id ? (['message_id' => $reply_to_message_id]) : null,
-        'allow_sending_without_reply' => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        'reply_parameters'            => $reply_to_message_id ? ([
+            'message_id' => $reply_to_message_id,
+            'allow_sending_without_reply' => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        ]) : null,
         'disable_web_page_preview'    => (array_key_exists('disable_web_page_preview', $params) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
         'parse_mode'                  => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
     ]);
@@ -143,8 +145,10 @@ function SendDocument(string|int $chat_id, string $document, string|array|null $
         'chat_id'                        => $chat_id,
         'document'                       => $document,
         'caption'                        => strlen($caption) > 0 ? $caption : '',
-        'reply_parameters'               => $reply_to_message_id ? (['message_id' => $reply_to_message_id]) : null,
-        'allow_sending_without_reply'    => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        'reply_parameters'               => $reply_to_message_id ? ([
+            'message_id' => $reply_to_message_id,
+            'allow_sending_without_reply' => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        ]) : null,
         'disable_web_page_preview'       => (array_key_exists('disable_web_page_preview', $params) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
         'disable_content_type_detection' => (array_key_exists('disable_content_type_detection', $params) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
         'parse_mode'                     => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
@@ -160,8 +164,10 @@ function SendPhoto(string|int $chat_id, string $photo, string|array|null $captio
         'chat_id'                        => $chat_id,
         'photo'                          => $photo,
         'caption'                        => strlen($caption) > 0 ? $caption : '',
-        'reply_parameters'               => $reply_to_message_id ? (['message_id' => $reply_to_message_id]) : null,
-        'allow_sending_without_reply'    => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        'reply_parameters'               => $reply_to_message_id ? ([
+            'message_id' => $reply_to_message_id,
+            'allow_sending_without_reply' => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        ]) : null,
         'disable_web_page_preview'       => (array_key_exists('disable_web_page_preview', $params) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
         'disable_content_type_detection' => (array_key_exists('disable_content_type_detection', $params) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
         'parse_mode'                     => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
@@ -177,8 +183,10 @@ function SendAnimation(string|int $chat_id, string $animation, string|array|null
         'chat_id'                        => $chat_id,
         'animation'                      => $animation,
         'caption'                        => strlen($caption) > 0 ? $caption : '',
-        'reply_parameters'               => $reply_to_message_id ? (['message_id' => $reply_to_message_id]) : null,
-        'allow_sending_without_reply'    => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        'reply_parameters'               => $reply_to_message_id ? ([
+            'message_id' => $reply_to_message_id,
+            'allow_sending_without_reply' => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        ]) : null,
         'disable_web_page_preview'       => (array_key_exists('disable_web_page_preview', $params) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
         'disable_content_type_detection' => (array_key_exists('disable_content_type_detection', $params) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
         'parse_mode'                     => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
@@ -194,8 +202,10 @@ function SendVideo(string|int $chat_id, string $video, string|array|null $captio
         'chat_id'                        => $chat_id,
         'video'                          => $video,
         'caption'                        => strlen($caption) > 0 ? $caption : '',
-        'reply_parameters'               => $reply_to_message_id ? (['message_id' => $reply_to_message_id]) : null,
-        'allow_sending_without_reply'    => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        'reply_parameters'               => $reply_to_message_id ? ([
+            'message_id' => $reply_to_message_id,
+            'allow_sending_without_reply' => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        ]) : null,
         'disable_web_page_preview'       => (array_key_exists('disable_web_page_preview', $params) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
         'disable_content_type_detection' => (array_key_exists('disable_content_type_detection', $params) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
         'parse_mode'                     => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
@@ -211,8 +221,10 @@ function SendVoice(string|int $chat_id, string $voice, string|array|null $captio
         'chat_id'                        => $chat_id,
         'voice'                          => $voice,
         'caption'                        => strlen($caption) > 0 ? $caption : '',
-        'reply_parameters'               => $reply_to_message_id ? (['message_id' => $reply_to_message_id]) : null,
-        'allow_sending_without_reply'    => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        'reply_parameters'               => $reply_to_message_id ? ([
+            'message_id' => $reply_to_message_id,
+            'allow_sending_without_reply' => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        ]) : null,
         'disable_web_page_preview'       => (array_key_exists('disable_web_page_preview', $params) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
         'disable_content_type_detection' => (array_key_exists('disable_content_type_detection', $params) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
         'parse_mode'                     => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
@@ -228,8 +240,10 @@ function SendAudio(string|int $chat_id, string $audio, string|array|null $captio
         'chat_id'                        => $chat_id,
         'audio'                          => $audio,
         'caption'                        => strlen($caption) > 0 ? $caption : '',
-        'reply_parameters'               => $reply_to_message_id ? (['message_id' => $reply_to_message_id]) : null,
-        'allow_sending_without_reply'    => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        'reply_parameters'               => $reply_to_message_id ? ([
+            'message_id' => $reply_to_message_id,
+            'allow_sending_without_reply' => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        ]) : null,
         'disable_web_page_preview'       => (array_key_exists('disable_web_page_preview', $params) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
         'disable_content_type_detection' => (array_key_exists('disable_content_type_detection', $params) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
         'parse_mode'                     => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
@@ -245,8 +259,10 @@ function SendSticker(string|int $chat_id, string $sticker, string|null $emoji = 
         'chat_id'                        => $chat_id,
         'sticker'                        => $sticker,
         'emoji'                          => $emoji,
-        'reply_parameters'               => $reply_to_message_id ? (['message_id' => $reply_to_message_id]) : null,
-        'allow_sending_without_reply'    => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        'reply_parameters'               => $reply_to_message_id ? ([
+            'message_id' => $reply_to_message_id,
+            'allow_sending_without_reply' => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        ]) : null,
         'disable_web_page_preview'       => (array_key_exists('disable_web_page_preview', $params) && is_null($params['disable_web_page_preview'])) ? null : ($params['disable_web_page_preview'] ?? true),
         'disable_content_type_detection' => (array_key_exists('disable_content_type_detection', $params) && is_null($params['disable_content_type_detection'])) ? null : ($params['disable_content_type_detection'] ?? true),
         'parse_mode'                     => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
@@ -323,8 +339,10 @@ function CopyMessage(string|int $to_chat_id, string|int $from_chat_id, string|in
         'chat_id'                     => $to_chat_id,
         'from_chat_id'                => $from_chat_id,
         'message_id'                  => $msg_id,
-        'reply_parameters'            => $reply_to_message_id ? (['message_id' => $reply_to_message_id]) : null,
-        'allow_sending_without_reply' => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        'reply_parameters'            => $reply_to_message_id ? ([
+            'message_id' => $reply_to_message_id,
+            'allow_sending_without_reply' => (array_key_exists('allow_sending_without_reply', $params) && is_null($params['allow_sending_without_reply'])) ? null : ($params['allow_sending_without_reply'] ?? true),
+        ]) : null,
         'parse_mode'                  => (array_key_exists('parse_mode', $params) && is_null($params['parse_mode'])) ? null : ($params['parse_mode'] ?? 'HTML'),
     ]);
 
