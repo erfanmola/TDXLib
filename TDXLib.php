@@ -7,7 +7,7 @@
  *   |_|   |____/  /_/\_\ |_____|_|_.__/
  *
  * Author: Erfan Mola
- * Version: 0.1.9
+ * Version: 0.2.0
  * License: GNU Affero General Public License v3.0
  */
 
@@ -659,6 +659,20 @@ function RevokeChatInviteLink(string|int $chat_id, string $invite_link, null|boo
     ], $response, $bot_token, $bot_api_server)['result'] ?? null;
 }
 
+function CreateInvoiceLink(string $title, string $description, string $payload, string $currency, string|array $prices, array $params = [], null|string $bot_token = null, string|null $bot_api_server = null): array|null
+{
+
+    $params = array_merge($params, [
+        'title'       => $title,
+        'description' => $description,
+        'payload'     => $payload,
+        'currency'    => $currency,
+        'prices'      => is_array($prices) ? json_encode($prices) : $prices,
+    ]);
+
+    return TelegramAPI('createInvoiceLink', $params, true, $bot_token, $bot_api_server)['result'] ?? null;
+}
+
 /* Telegram Methods */
 
 /* OpenSwoole Methods */
@@ -838,7 +852,7 @@ function CheckUserRemainingSponsors(string|int $user_id, array $sponsors, null|s
     return array_values($sponsors);
 }
 
-function MentionUserByID(string|int $user_id, string $text, string $mode = 'HTML'): string
+function MentionUserByID(string|int $user_id, string|null $text, string $mode = 'HTML'): string
 {
 
     if ($mode === 'HTML') {
@@ -966,7 +980,7 @@ function UnrestrictChatMemberManual(string|int $chat_id, string|int $user_id, in
 function UnrestrictChatMember(string|int $chat_id, string|int $user_id, int $until_date = 0, null|bool $response = null, null|string $bot_token = null, string|null $bot_api_server = null): array|null
 {
 
-    return RestrictChatMember($chat_id, $user_id, array_map(fn () => true, GetChat($chat_id)['permissions']), $until_date, $response, $bot_token, $bot_api_server);
+    return RestrictChatMember($chat_id, $user_id, array_map(fn() => true, GetChat($chat_id)['permissions']), $until_date, $response, $bot_token, $bot_api_server);
 }
 
 function SerializeHTMLString($string)
