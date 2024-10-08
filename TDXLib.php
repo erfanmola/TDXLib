@@ -659,7 +659,7 @@ function RevokeChatInviteLink(string|int $chat_id, string $invite_link, null|boo
     ], $response, $bot_token, $bot_api_server)['result'] ?? null;
 }
 
-function CreateInvoiceLink(string $title, string $description, string $payload, string $currency, string|array $prices, array $params = [], null|string $bot_token = null, string|null $bot_api_server = null): array|null
+function CreateInvoiceLink(string $title, string $description, string $payload, string $currency, string|array $prices, array $params = [], null|string $bot_token = null, string|null $bot_api_server = null): string|null
 {
 
     $params = array_merge($params, [
