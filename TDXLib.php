@@ -7,7 +7,7 @@
  *   |_|   |____/  /_/\_\ |_____|_|_.__/
  *
  * Author: Erfan Mola
- * Version: 0.2.0
+ * Version: 0.2.1
  * License: GNU Affero General Public License v3.0
  */
 
@@ -439,7 +439,7 @@ function AnswerCallbackQuery(string|int $callback_query_id, string $text, bool $
     ], $response, $bot_token, $bot_api_server);
 }
 
-function EditMessageCaption(null|string|int $chat_id = null, null|int|string $message_id = null, string|array $caption, null|int|string $inline_message_id = null, array $params = [], null|bool $response = null, null|string $bot_token = null, string|null $bot_api_server = null): array|null
+function EditMessageCaption(null|string|int $chat_id = null, null|int|string $message_id = null, string|array $caption = '', null|int|string $inline_message_id = null, array $params = [], null|bool $response = null, null|string $bot_token = null, string|null $bot_api_server = null): array|null
 {
 
     $params = array_merge($params, [
@@ -455,7 +455,7 @@ function EditMessageCaption(null|string|int $chat_id = null, null|int|string $me
     return TelegramAPI('editMessageCaption', $params, $response, $bot_token, $bot_api_server);
 }
 
-function EditMessageText(null|string|int $chat_id = null, null|int|string $message_id = null, string|array $text, null|int|string $inline_message_id = null, array $params = [], null|bool $response = null, null|string $bot_token = null, string|null $bot_api_server = null): array|null
+function EditMessageText(null|string|int $chat_id = null, null|int|string $message_id = null, string|array $text = '', null|int|string $inline_message_id = null, array $params = [], null|bool $response = null, null|string $bot_token = null, string|null $bot_api_server = null): array|null
 {
 
     $params = array_merge($params, [
